@@ -21,7 +21,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 ROBOTSTXT_OBEY = False
 
 # Data fields that are exported to csv or Json output
-FEED_EXPORT_FIELDS = ['title', 'product_id', 'url', 'price', 'rating', 'number_of_reviews', 'product_options', 'count_of_images', 'images_urls', 'favorited_by', 'store_name', 'description', 'reviews']
+FEED_EXPORT_FIELDS = ['title', 'product_id', 'url', 'price', 'sales', 'rating', 'number_of_reviews', 'product_options', 'count_of_images', 'images_urls', 'favorited_by', 'store_name', 'reviews']
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 2
@@ -56,9 +56,9 @@ COOKIES_ENABLED = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'etsy.middlewares.EtsyDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'etsy.middlewares.EtsyDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html

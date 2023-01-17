@@ -14,9 +14,9 @@ from scrapy.loader import ItemLoader
 from .product_info import ProductDetailsSpider
 
 # Spider Class
-class ProductsSpider(scrapy.Spider):
+class CatalogsSpider(scrapy.Spider):
     # Spider name
-    name = 'search_products'
+    name = 'list_catalogs'
     allowed_domains = ['etsy.com']
     start_urls = ['https://www.etsy.com/']
 
@@ -25,10 +25,10 @@ class ProductsSpider(scrapy.Spider):
 
     product_details_spider = None
 
-    def __init__(self, search, reviews_option=1, count_max=None, urls_only=False, *args, **kwargs):
-        if search:
+    def __init__(self, catalogs, reviews_option=1, count_max=None, urls_only=False, *args, **kwargs):
+        if catalogs:
             # Build the search URL
-            self.start_urls = [f'https://www.etsy.com/hk-en/search?q={search}&page=1']
+            self.start_urls = [f'https://www.etsy.com/hk-en/c/{catalogs}?page=1']
 
             # Get only the products URLs
             self.URLS_ONLY = bool(urls_only)
@@ -41,7 +41,7 @@ class ProductsSpider(scrapy.Spider):
                 *args,
                 **kwargs) 
 
-        super(ProductsSpider, self).__init__(*args, **kwargs)
+        super(CatalogsSpider, self).__init__(*args, **kwargs)
 
 
     # Parse the first page result and go to the next page

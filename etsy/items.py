@@ -7,7 +7,7 @@
 
 import scrapy
 from w3lib.html import remove_tags
-from scrapy.loader.processors import MapCompose, TakeFirst, Join
+from itemloaders.processors import MapCompose, Join, TakeFirst
 
 # Remove extras spaces in strings
 def strip_space(value):
@@ -24,41 +24,60 @@ class ProductItem(scrapy.Item):
     # Each processor performs a series of transformations on the data before saving it
 
     product_id = scrapy.Field(output_processor=TakeFirst())
+
     url = scrapy.Field(output_processor=TakeFirst())
-    title = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-    					       output_processor=TakeFirst())
-    description = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-    					       output_processor=Join(' '))
 
-    product_options = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                              output_processor=Join(','))
+    title = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+    	    output_processor=TakeFirst())
+    # description = scrapy.Field(
+    #       input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+    # 	    output_processor=Join(' '))
 
-    price = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                         output_processor=TakeFirst())
+    product_options = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=Join(','))
 
-    currency = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                            output_processor=TakeFirst())
+    price = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
+
+    currency = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
+
+    sales = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
 
     rating = scrapy.Field(output_processor=TakeFirst())
 
-    number_of_reviews = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                            output_processor=TakeFirst())
+    number_of_reviews = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
+
     count_of_images = scrapy.Field(output_processor=TakeFirst())
 
-    images_urls = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                              output_processor=Join(','))
+    images_urls = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=Join(','))
 
-    overview = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                            output_processor=Join(','))
+    overview = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=Join(','))
 
     favorited_by = scrapy.Field(output_processor=TakeFirst())
-    store_name = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                              output_processor=TakeFirst())
 
-    store_location = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                                  output_processor=TakeFirst())
+    store_name = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
 
-    return_location = scrapy.Field(input_processor=MapCompose(normalize_space, remove_tags, strip_space),
-                                    output_processor=TakeFirst())
+    store_location = scrapy.Field(
+            input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+            output_processor=TakeFirst())
+
+    # return_location = scrapy.Field(
+    #         input_processor=MapCompose(normalize_space, remove_tags, strip_space),
+    #         output_processor=TakeFirst())
 
     reviews = scrapy.Field()

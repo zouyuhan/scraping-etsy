@@ -7,18 +7,21 @@
 
 # This Pipeline processes several items scraped.
 class EtsyPipeline(object):
+
     def process_item(self, item, spider):
-        
+        print(f"#### DEBUG price: {item['price']}")
+        print(f"#### DEBUG sales: {item['sales']}")
+
         # Format the price output
         if 'price' in item:
-            # Check if there is a currency symbol
-            if len(item['price'].split()) > 1:
-                # Remove the currency symbol and the + signal
-                item['price'] = item['price'].split()[1].replace('+','')
-            else:
-                # Remove the currency symbol and the + signal
-                item['price'] = item['price'].replace('$','').replace('+','')
-        
+            item['price'] = item['price'].split(' ')[-1]
+            # Remove the currency symbol and the + signal
+            item['price'] = item['price'].replace('$', '').replace('+', '')
+
+        if 'sales' in item:
+            item['sales'] = item['sales'].split(' ')[0]
+            item['sales'] = item['sales'].replace(',', '')
+
         # Remove the 'in' string 
         if 'store_location' in item:
             item['store_location'] = item['store_location'].replace('in ', '')
